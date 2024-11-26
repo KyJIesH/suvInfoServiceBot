@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: SuvInfoService
+  datasource:
+    name: suvInfoService
+    url: jdbc:postgresql://localhost:5432/suvInfoService
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: postgres
+
+bot:
+  name: N A M E
+  token: T O K E N

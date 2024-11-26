@@ -1,0 +1,26 @@
+-- DROP TABLE IF EXISTS roles CASCADE;
+-- DROP TABLE IF EXISTS users CASCADE;
+--
+-- CREATE TABLE IF NOT EXISTS users
+-- (
+--     us_id          BIGINT PRIMARY KEY,
+--     us_telegram_id BIGINT NOT NULL,
+--     us_role_id     BIGINT NOT NULL REFERENCES roles(rol_id),
+--     us_use_date    TIMESTAMP
+-- );
+--
+-- CREATE TABLE IF NOT EXISTS roles
+-- (
+--     rol_id   BIGINT PRIMARY KEY,
+--     rol_role VARCHAR(40)
+-- );
+
+-- CREATE TABLE IF NOT EXISTS people
+-- (
+--     pep_id         BIGINT      PRIMARY KEY,
+--     pep_last_name  VARCHAR(40) NOT NULL,
+--     pep_name       VARCHAR(40) NOT NULL,
+--     pep_patronymic VARCHAR(40) NOT NULL,
+--     pep_kurs_id    BIGINT      NOT NULL
+-- );
+
