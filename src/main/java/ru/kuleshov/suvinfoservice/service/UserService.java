@@ -9,4 +9,8 @@ public interface UserService {
     boolean getAdmin(Long telegramId);
 
     User createUser(Long telegramId);
+
+    void deleteUser(Long telegramId);
+
+    void updateUser(Long telegramId);
 }
