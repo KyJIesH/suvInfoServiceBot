@@ -2,7 +2,7 @@ package ru.kuleshov.suvinfoservice.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,15 +13,16 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "roles")
-public class Role {
+@Table(name = "statuses")
+public class Status {
 
     @Id
-    @Column(name = "rol_id")
-    @NotNull
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "st_id")
     private Long id;
 
-    @Column(name = "rol_role")
+    @Column(name = "st_status")
     @NotBlank
-    private String role;
+    @Size(max = 30)
+    private String status;
 }

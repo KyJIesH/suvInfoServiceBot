@@ -9,6 +9,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -37,7 +39,13 @@ public class Person {
     @Size(min = 2, max = 40)
     private String patronymic;
 
-    @Column(name = "pep_kurs_id")
-    @NotNull
-    private Long kursId;
+    @OneToOne
+    @JoinColumn(name = "pep_kurs_id", referencedColumnName = "kur_number_kurs")
+    private Kurs kurs;
+
+    @ManyToMany
+    @JoinTable(name = "events_people",
+            joinColumns = @JoinColumn(name = "ev_pep_people_id"),
+            inverseJoinColumns = @JoinColumn(name = "ev_pep_event_id"))
+    private List<Event> events;
 }
