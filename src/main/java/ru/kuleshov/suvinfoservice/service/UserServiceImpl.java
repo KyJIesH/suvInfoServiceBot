@@ -51,4 +51,24 @@ public class UserServiceImpl implements UserService {
 
         return userRepository.save(user);
     }
+
+    @Override
+    public void deleteUser(Long telegramId) {
+        log.info("{} - Удаление администратором пользователя с id {}", TAG, telegramId);
+
+        if (userRepository.findByTelegramId(telegramId).isPresent()) {
+            userRepository.delete(userRepository.findByTelegramId(telegramId).get());
+        }
+    }
+
+    @Override
+    public void updateUser(Long telegramId) {
+        log.info("{} - Обновление администратором пользователя с id {} - наделение правами админа", TAG, telegramId);
+
+        if (userRepository.findByTelegramId(telegramId).isPresent()) {
+            User user = userRepository.findByTelegramId(telegramId).get();
+            user.setRoleId(1L);
+            userRepository.save(user);
+        }
+    }
 }

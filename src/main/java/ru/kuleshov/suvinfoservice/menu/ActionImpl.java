@@ -33,12 +33,13 @@ public class ActionImpl implements Action {
         if (absoluteService.getUserService().checkUser(msg.getChatId())) {
             absoluteService.getMainKeyboard().sendMainMenu(msg.getChatId().toString(), mainMenuCommand, bot);
             log.info("{} - пользователь найден - выход из метода", TAG);
-            return true;
-        } else {
-            messageNeedAuthorisation(msg, bot);
-            log.info("{} - пользователь НЕ найден - выход из метода", TAG);
-            return true;
         }
+//        } else {
+//            messageNeedAuthorisation(msg, bot);
+//            log.info("{} - пользователь НЕ найден - выход из метода", TAG);
+//        }
+
+        return true;
 
     }
 
@@ -101,17 +102,17 @@ public class ActionImpl implements Action {
                 case ADD_USER:
                     log.info("{} - touchAdminAddUser", TAG);
                     sendResponse(msg, "Введите telegramId нового пользователя", bot);
-
-
-                    //TODO
-//                    User user = absoluteService.getUserService().createUser(Long.parseLong(messageText));
-
+                    absoluteService.getDaoState().waitInputIdUserForAdd(msg.getChatId());
                     break;
                 case DELETE_USER:
                     log.info("{} - touchAdminDeleteUser", TAG);
+                    sendResponse(msg, "Введите telegramId удаляемого пользователя", bot);
+                    absoluteService.getDaoState().waitInputIdUserForDelete(msg.getChatId());
                     break;
                 case CREATE_ADMIN:
                     log.info("{} - touchAdminCreateAdmin", TAG);
+                    sendResponse(msg, "Введите telegramId пользователя для наделения правами администратора", bot);
+                    absoluteService.getDaoState().waitInputIdUserForDelegateAdminRoot(msg.getChatId());
                     break;
                 // Обработка нажатия кнопки "НАЗАД"
                 case BACK:
@@ -151,7 +152,8 @@ public class ActionImpl implements Action {
     }
 
     // Отправка ответов пользователю
-    private void sendResponse(Message message, String text, TelegramBot bot) throws TelegramApiException {
+    @Override
+    public void sendResponse(Message message, String text, TelegramBot bot) throws TelegramApiException {
         log.info("{} - Отправка ответа", TAG);
         SendMessage sendMsg = new SendMessage();
         sendMsg.setChatId(String.valueOf(message.getChatId()));
