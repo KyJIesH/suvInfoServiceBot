@@ -1,4 +1,4 @@
-package ru.kuleshov.suvinfoservice.menu;
+package ru.kuleshov.suvinfoservice.menu.keyboard;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -7,24 +7,24 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMar
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import ru.kuleshov.suvinfoservice.bot.TelegramBot;
-import ru.kuleshov.suvinfoservice.command.Action;
+import ru.kuleshov.suvinfoservice.menu.command.MainMenuCommand;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
 @Component
-public class SecondMenu {
+public class MainKeyboard {
 
-    private static final String TAG = "SECOND MENU";
+    private static final String TAG = "FIRST MENU";
 
-    public void sendActionMenu(String chatId, Action action, TelegramBot bot) throws TelegramApiException {
-        log.info("{} - sendActionMenu", TAG);
-        action = Action.DEFAULT;
+    public void sendMainMenu(String chatId, MainMenuCommand menu, TelegramBot bot) throws TelegramApiException {
+        log.info("{} - sendMainMenu", TAG);
+        menu = MainMenuCommand.DEFAULT;
 
         SendMessage message = new SendMessage();
         message.setChatId(chatId);
-        message.setText("Выберите действие");
+        message.setText("Выберите пункт меню");
 
         ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup();
         List<KeyboardRow> keyboard = new ArrayList<>();
@@ -32,18 +32,22 @@ public class SecondMenu {
 
         // Первая строка меню из 1 кнопки
         row = new KeyboardRow();
-        row.add("ВВОД ФИО");
+        row.add("РАСХОД ЛС");
         keyboard.add(row);
 
-        // Вторая строка меню из 2 кнопок
+        // Вторая строка меню из 1 кнопки
         row = new KeyboardRow();
-        row.add("ДОБАВИТЬ");
-        row.add("УДАЛИТЬ");
+        row.add("НАЧАЛО РАБОТЫ");
         keyboard.add(row);
 
         // Третья строка меню из 1 кнопки
         row = new KeyboardRow();
-        row.add("НАЗАД");
+        row.add("ФУНКЦИОНАЛ");
+        keyboard.add(row);
+
+        // Четвертая строка меню из 1 кнопки
+        row = new KeyboardRow();
+        row.add("АДМИНИСТРИРОВАНИЕ");
         keyboard.add(row);
 
         keyboardMarkup.setKeyboard(keyboard);

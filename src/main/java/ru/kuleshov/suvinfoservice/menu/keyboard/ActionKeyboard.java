@@ -1,4 +1,4 @@
-package ru.kuleshov.suvinfoservice.menu;
+package ru.kuleshov.suvinfoservice.menu.keyboard;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -7,24 +7,24 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMar
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import ru.kuleshov.suvinfoservice.bot.TelegramBot;
-import ru.kuleshov.suvinfoservice.command.MainMenu;
+import ru.kuleshov.suvinfoservice.menu.command.ActionCommand;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
 @Component
-public class FirstMenu {
+public class ActionKeyboard {
 
-    private static final String TAG = "FIRST MENU";
+    private static final String TAG = "SECOND MENU";
 
-    public void sendMainMenu(String chatId, MainMenu menu, TelegramBot bot) throws TelegramApiException {
-        log.info("{} - sendMainMenu", TAG);
-        menu = MainMenu.DEFAULT;
+    public void sendActionMenu(String chatId, ActionCommand actionCommand, TelegramBot bot) throws TelegramApiException {
+        log.info("{} - sendActionMenu", TAG);
+        actionCommand = ActionCommand.DEFAULT;
 
         SendMessage message = new SendMessage();
         message.setChatId(chatId);
-        message.setText("Выберите пункт меню");
+        message.setText("Выберите действие");
 
         ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup();
         List<KeyboardRow> keyboard = new ArrayList<>();
@@ -32,17 +32,18 @@ public class FirstMenu {
 
         // Первая строка меню из 1 кнопки
         row = new KeyboardRow();
-        row.add("РАСХОД ЛС");
+        row.add("ВВОД ФИО");
         keyboard.add(row);
 
-        // Вторая строка меню из 1 кнопки
+        // Вторая строка меню из 2 кнопок
         row = new KeyboardRow();
-        row.add("НАЧАЛО РАБОТЫ");
+        row.add("ДОБАВИТЬ");
+        row.add("УДАЛИТЬ");
         keyboard.add(row);
 
         // Третья строка меню из 1 кнопки
         row = new KeyboardRow();
-        row.add("ФУНКЦИОНАЛ");
+        row.add("НАЗАД");
         keyboard.add(row);
 
         keyboardMarkup.setKeyboard(keyboard);

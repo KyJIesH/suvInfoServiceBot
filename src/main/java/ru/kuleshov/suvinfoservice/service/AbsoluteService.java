@@ -2,9 +2,11 @@ package ru.kuleshov.suvinfoservice.service;
 
 import lombok.Getter;
 import org.springframework.stereotype.Service;
-import ru.kuleshov.suvinfoservice.handler.MenuHandler;
-import ru.kuleshov.suvinfoservice.menu.FirstMenu;
-import ru.kuleshov.suvinfoservice.menu.SecondMenu;
+import ru.kuleshov.suvinfoservice.menu.Action;
+import ru.kuleshov.suvinfoservice.menu.handler.MenuHandler;
+import ru.kuleshov.suvinfoservice.menu.keyboard.ActionKeyboard;
+import ru.kuleshov.suvinfoservice.menu.keyboard.AdminKeyboard;
+import ru.kuleshov.suvinfoservice.menu.keyboard.MainKeyboard;
 
 /**
  * Сервис всевластия
@@ -13,17 +15,22 @@ import ru.kuleshov.suvinfoservice.menu.SecondMenu;
 @Service
 public class AbsoluteService {
     private final MenuHandler menuHandler;
-    private final FirstMenu fistMenu;
-    private final SecondMenu secondMenu;
+    private final Action action;
+    private final MainKeyboard mainKeyboard;
+    private final ActionKeyboard actionKeyboard;
+    private final AdminKeyboard adminKeyboard;
     private final EventService eventService;
     private final PeopleService peopleService;
     private final UserService userService;
 
-    public AbsoluteService(MenuHandler menuHandler, FirstMenu fistMenu, SecondMenu secondMenu,
-                           EventService eventService, PeopleService peopleService, UserService userService) {
+    public AbsoluteService(MenuHandler menuHandler, Action action, MainKeyboard mainKeyboard, ActionKeyboard actionKeyboard,
+                           AdminKeyboard adminKeyboard, EventService eventService, PeopleService peopleService,
+                           UserService userService) {
         this.menuHandler = menuHandler;
-        this.fistMenu = fistMenu;
-        this.secondMenu = secondMenu;
+        this.action = action;
+        this.mainKeyboard = mainKeyboard;
+        this.actionKeyboard = actionKeyboard;
+        this.adminKeyboard = adminKeyboard;
 
         this.eventService = eventService;
         this.peopleService = peopleService;

@@ -6,9 +6,9 @@ import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import ru.kuleshov.suvinfoservice.service.AbsoluteService;
 import ru.kuleshov.suvinfoservice.config.BotConfig;
-import ru.kuleshov.suvinfoservice.handler.MenuHandler;
+import ru.kuleshov.suvinfoservice.menu.handler.MenuHandler;
+import ru.kuleshov.suvinfoservice.service.AbsoluteService;
 
 @Slf4j
 @Component

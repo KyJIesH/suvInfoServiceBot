@@ -15,7 +15,6 @@ import lombok.Setter;
 public class Role {
 
     @Id
-    @GeneratedValue
     @Column(name = "rol_id")
     private Long id;
 

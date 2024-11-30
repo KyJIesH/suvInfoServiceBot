@@ -1,11 +1,11 @@
-package ru.kuleshov.suvinfoservice.command;
+package ru.kuleshov.suvinfoservice.menu.command;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum Action {
+public enum ActionCommand {
     DEFAULT("DEFAULT"),
     FIND("ВВОД ФИО"),
     ADD_EVENT("ДОБАВИТЬ"),
@@ -15,8 +15,8 @@ public enum Action {
 
     private final String nameButton;
 
-    public static Action from(String action) {
-        for (Action value : Action.values()) {
+    public static ActionCommand from(String action) {
+        for (ActionCommand value : ActionCommand.values()) {
             if (value.getNameButton().equalsIgnoreCase(action)) {
                 return value;
             }
