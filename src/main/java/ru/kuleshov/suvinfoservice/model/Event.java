@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ru.kuleshov.suvinfoservice.model.levelEvent.LevelEvent;
+import ru.kuleshov.suvinfoservice.model.status.Status;
 
 import java.time.LocalDateTime;
 

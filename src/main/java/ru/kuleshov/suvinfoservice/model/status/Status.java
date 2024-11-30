@@ -1,7 +1,6 @@
-package ru.kuleshov.suvinfoservice.model;
+package ru.kuleshov.suvinfoservice.model.status;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,8 +20,8 @@ public class Status {
     @Column(name = "st_id")
     private Long id;
 
-    @Column(name = "st_status")
-    @NotBlank
+    @Column(name = "st_status", nullable = false)
+    @Enumerated(EnumType.STRING)
     @Size(max = 30)
     private String status;
 }

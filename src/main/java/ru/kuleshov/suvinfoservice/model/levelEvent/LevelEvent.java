@@ -1,10 +1,6 @@
-package ru.kuleshov.suvinfoservice.model;
+package ru.kuleshov.suvinfoservice.model.levelEvent;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,8 +19,8 @@ public class LevelEvent {
     @Column(name = "lev_ev_id")
     private Long levelId;
 
-    @Column(name = "lev_ev_level")
-    @NotBlank
+    @Column(name = "lev_ev_level", nullable = false)
+    @Enumerated(EnumType.STRING)
     @Size(max = 30)
     private String eventLevel;
 }
