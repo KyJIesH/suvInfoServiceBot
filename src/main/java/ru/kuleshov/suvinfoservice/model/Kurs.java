@@ -1,6 +1,7 @@
 package ru.kuleshov.suvinfoservice.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,5 +21,6 @@ public class Kurs {
     private Long id;
 
     @Column(name = "kur_number_kurs")
+    @Size(min = 1, max = 4)
     private Long numberKurs;
 }

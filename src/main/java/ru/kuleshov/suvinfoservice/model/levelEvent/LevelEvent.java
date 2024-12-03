@@ -16,11 +16,12 @@ import lombok.Setter;
 public class LevelEvent {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "lev_ev_id")
     private Long levelId;
 
     @Column(name = "lev_ev_level", nullable = false)
     @Enumerated(EnumType.STRING)
     @Size(max = 30)
-    private String eventLevel;
+    private LevelEventList eventLevel;
 }

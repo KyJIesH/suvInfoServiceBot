@@ -173,4 +173,15 @@ public class ActionImpl implements Action {
         sb.append(msg.getChatId());
         sendResponse(msg, sb.toString(), bot);
     }
+
+    @Override
+    public void messageIncorrectInput(Message msg, TelegramBot bot) throws TelegramApiException {
+        log.info("{} - Отправка ответа ввод некорректных данных", TAG);
+
+        StringBuilder sb = new StringBuilder();
+        sb.append(msg.getFrom().getFirstName());
+        sb.append(", Вы ввели некорректные данные.\n\n");
+        sb.append("Пожалуйста выполните ввод корректных данных.\n\n");
+        sendResponse(msg, sb.toString(), bot);
+    }
 }

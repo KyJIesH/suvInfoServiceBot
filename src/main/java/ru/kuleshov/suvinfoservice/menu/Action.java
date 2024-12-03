@@ -18,4 +18,6 @@ public interface Action {
     void sendResponse(Message message, String text, TelegramBot bot) throws TelegramApiException;
 
     void messageNeedAuthorisation(Message msg, TelegramBot bot) throws TelegramApiException;
+
+    void messageIncorrectInput(Message msg, TelegramBot bot) throws TelegramApiException;
 }

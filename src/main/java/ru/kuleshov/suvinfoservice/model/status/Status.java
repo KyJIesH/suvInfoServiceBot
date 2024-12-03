@@ -23,5 +23,5 @@ public class Status {
     @Column(name = "st_status", nullable = false)
     @Enumerated(EnumType.STRING)
     @Size(max = 30)
-    private String status;
+    private StatusList status;
 }
