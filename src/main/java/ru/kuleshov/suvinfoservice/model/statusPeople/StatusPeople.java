@@ -1,4 +1,4 @@
-package ru.kuleshov.suvinfoservice.model.status;
+package ru.kuleshov.suvinfoservice.model.statusPeople;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
@@ -12,16 +12,16 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "statuses")
-public class Status {
+@Table(name = "statuses_people")
+public class StatusPeople {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "st_id")
+    @Column(name = "st_pep_id")
     private Long id;
 
-    @Column(name = "st_status", nullable = false)
+    @Column(name = "st_pep_status", nullable = false)
     @Enumerated(EnumType.STRING)
     @Size(max = 30)
-    private StatusList status;
+    private StatusPeopleList status;
 }

@@ -9,7 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ru.kuleshov.suvinfoservice.model.levelEvent.LevelEvent;
-import ru.kuleshov.suvinfoservice.model.status.Status;
+import ru.kuleshov.suvinfoservice.model.statusEvent.StatusEvent;
 
 import java.time.LocalDateTime;
 
@@ -41,7 +41,7 @@ public class Event {
 
     @ManyToOne
     @JoinColumn(name = "ev_status_event_id", referencedColumnName = "st_id")
-    private Status statusEvent;
+    private StatusEvent statusEvent;
 
     @Column(name = "ev_description")
     @NotBlank
