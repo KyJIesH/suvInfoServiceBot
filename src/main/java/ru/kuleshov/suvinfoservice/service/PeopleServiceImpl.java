@@ -1,12 +1,16 @@
 package ru.kuleshov.suvinfoservice.service;
 
-
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import ru.kuleshov.suvinfoservice.model.Kurs;
 import ru.kuleshov.suvinfoservice.model.Person;
+import ru.kuleshov.suvinfoservice.model.statusPeople.StatusPeopleList;
+import ru.kuleshov.suvinfoservice.repository.KursRepository;
+import ru.kuleshov.suvinfoservice.repository.PersonRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -15,9 +19,41 @@ public class PeopleServiceImpl implements PeopleService {
 
     private static final String TAG = "PEOPLE SERVICE";
 
+    private PersonRepository personRepository;
+    private KursRepository kursRepository;
+
     @Override
-    public List<Person> getListPeople() {
+    public String getListPeople(Long numberKurs) {
         log.info("{} - получение расхода ЛС", TAG);
-        return List.of();
+
+        StringBuilder sb = new StringBuilder();
+        Kurs kurs = null;
+
+        Optional<Kurs> kursOptional = kursRepository.findByNumberKurs(numberKurs);
+        if (kursOptional.isPresent()) {
+            kurs = kursOptional.get();
+        }
+
+        List<Person> personList = personRepository.findAllByKurs(kurs);
+
+        List<Person> statNormal = personRepository.findAllByKursAndStatusPeople_Status(kurs, StatusPeopleList.NORMAL);
+        List<Person> statTrips = personRepository.findAllByKursAndStatusPeople_Status(kurs, StatusPeopleList.TRIPS);
+        List<Person> statDisease = personRepository.findAllByKursAndStatusPeople_Status(kurs, StatusPeopleList.DISEASE);
+
+        sb.append("По списку: ").append(personList.size()).append("\n");
+        sb.append("В строю: ").append(statNormal.size()).append("\n");
+        if (!statTrips.isEmpty()) {
+            sb.append("Командировка: ").append(statTrips.size()).append("\n");
+            for (Person person : statTrips) {
+                sb.append(person.getLastName()).append(" ").append(person.getName()).append("\n");
+            }
+        }
+        if (!statDisease.isEmpty()) {
+            sb.append("Больны: ").append(statDisease.size()).append("\n");
+            for (Person person : statDisease) {
+                sb.append(person.getLastName()).append(" ").append(person.getName()).append("\n");
+            }
+        }
+        return sb.toString();
     }
 }

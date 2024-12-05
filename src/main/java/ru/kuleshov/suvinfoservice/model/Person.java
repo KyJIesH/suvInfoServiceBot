@@ -2,12 +2,14 @@ package ru.kuleshov.suvinfoservice.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ru.kuleshov.suvinfoservice.model.statusPeople.StatusPeople;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -37,7 +39,17 @@ public class Person {
     @Size(min = 2, max = 40)
     private String patronymic;
 
-    @Column(name = "pep_kurs_id")
-    @NotNull
-    private Long kursId;
+    @ManyToOne
+    @JoinColumn(name = "pep_status_people_id", referencedColumnName = "st_pep_id")
+    private StatusPeople statusPeople;
+
+    @OneToOne
+    @JoinColumn(name = "pep_kurs_id", referencedColumnName = "kur_number_kurs")
+    private Kurs kurs;
+
+    @ManyToMany
+    @JoinTable(name = "events_people",
+            joinColumns = @JoinColumn(name = "ev_pep_people_id"),
+            inverseJoinColumns = @JoinColumn(name = "ev_pep_event_id"))
+    private List<Event> events;
 }

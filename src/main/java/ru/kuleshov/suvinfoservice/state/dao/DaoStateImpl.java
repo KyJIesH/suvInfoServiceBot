@@ -44,4 +44,9 @@ public class DaoStateImpl implements DaoState {
     public void waitInputIdUserForDelegateAdminRoot(Long chatId) {
         daoStateMap.put(chatId, State.WAIT_INPUT_ID_USER_FOR_DELEGATE_ADMIN_ROOT);
     }
+
+    @Override
+    public void waitInputNumberKurs(Long chatId) {
+        daoStateMap.put(chatId, State.WAIT_INPUT_NUMBER_KURS_FOR_GET_PERSON_LIST);
+    }
 }

@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.kuleshov.suvinfoservice.model.User;
+import ru.kuleshov.suvinfoservice.model.role.Role;
+import ru.kuleshov.suvinfoservice.repository.RoleRepository;
 import ru.kuleshov.suvinfoservice.repository.UserRepository;
 
 import java.time.LocalDateTime;
@@ -18,6 +20,7 @@ public class UserServiceImpl implements UserService {
     private static final String TAG = "USER SERVICE IMPL";
 
     private UserRepository userRepository;
+    private RoleRepository roleRepository;
 
     @Override
     public boolean checkUser(Long telegramId) {
@@ -35,6 +38,7 @@ public class UserServiceImpl implements UserService {
         for (User admin : admins) {
             if (admin.getTelegramId().equals(telegramId)) {
                 result = true;
+                break;
             }
         }
         return result;
@@ -46,7 +50,7 @@ public class UserServiceImpl implements UserService {
 
         User user = new User();
         user.setTelegramId(telegramId);
-        user.setRoleId(2L);
+        user.setRole(getRole(2L));
         user.setUseDate(LocalDateTime.now());
 
         return userRepository.save(user);
@@ -67,8 +71,17 @@ public class UserServiceImpl implements UserService {
 
         if (userRepository.findByTelegramId(telegramId).isPresent()) {
             User user = userRepository.findByTelegramId(telegramId).get();
-            user.setRoleId(1L);
+            user.setRole(getRole(1L));
             userRepository.save(user);
         }
+    }
+
+    private Role getRole(Long id) {
+        Role role = null;
+
+        if (roleRepository.findById(id).isPresent()) {
+            role = roleRepository.findById(id).get();
+        }
+        return role;
     }
 }
