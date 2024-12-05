@@ -103,6 +103,23 @@ public class MenuHandler {
                 absoluteService.getDaoState().updateState(msg.getChatId(), State.PROCESSING);
                 break;
             }
+
+            // Обработка получения расхода ЛС
+            case WAIT_INPUT_NUMBER_KURS_FOR_GET_PERSON_LIST: {
+
+                Long numberKurs = Utils.convertsStringToLong(msg.getText());
+                if (numberKurs == null || numberKurs > 4 || numberKurs < 1) {
+                    absoluteService.getAction().messageIncorrectInput(msg, bot);
+                    absoluteService.getDaoState().updateState(msg.getChatId(), State.PROCESSING);
+                    break;
+                }
+
+                absoluteService.getAction().sendResponse(msg, "Расход ЛС " + numberKurs + " курса на " +
+                        absoluteService.getAction().getDateFormatter(), bot);
+                absoluteService.getAction().sendResponse(msg, absoluteService.getPeopleService().getListPeople(numberKurs), bot);
+                absoluteService.getDaoState().updateState(msg.getChatId(), State.PROCESSING);
+                break;
+            }
         }
     }
 }

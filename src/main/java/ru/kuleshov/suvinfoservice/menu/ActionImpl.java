@@ -12,6 +12,9 @@ import ru.kuleshov.suvinfoservice.menu.command.AdminMenuCommand;
 import ru.kuleshov.suvinfoservice.menu.command.MainMenuCommand;
 import ru.kuleshov.suvinfoservice.service.AbsoluteService;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 @Slf4j
 @Setter
 @Component
@@ -34,13 +37,7 @@ public class ActionImpl implements Action {
             absoluteService.getMainKeyboard().sendMainMenu(msg.getChatId().toString(), mainMenuCommand, bot);
             log.info("{} - пользователь найден - выход из метода", TAG);
         }
-//        } else {
-//            messageNeedAuthorisation(msg, bot);
-//            log.info("{} - пользователь НЕ найден - выход из метода", TAG);
-//        }
-
         return true;
-
     }
 
     @Override
@@ -65,6 +62,8 @@ public class ActionImpl implements Action {
                     break;
                 case LIST_PEOPLE:
                     log.info("{} - touchListPeople", TAG);
+                    sendResponse(msg, "Введите номер учебного курса", bot);
+                    absoluteService.getDaoState().waitInputNumberKurs(msg.getChatId());
                     break;
                 case ENTRANCE:
                     log.info("{} - touchEntrance", TAG);
@@ -151,6 +150,13 @@ public class ActionImpl implements Action {
         return true;
     }
 
+    @Override
+    public String getDateFormatter() {
+        LocalDateTime date = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return date.format(formatter);
+    }
+
     // Отправка ответов пользователю
     @Override
     public void sendResponse(Message message, String text, TelegramBot bot) throws TelegramApiException {
@@ -174,6 +180,7 @@ public class ActionImpl implements Action {
         sendResponse(msg, sb.toString(), bot);
     }
 
+    // Некорректный ввод данных
     @Override
     public void messageIncorrectInput(Message msg, TelegramBot bot) throws TelegramApiException {
         log.info("{} - Отправка ответа ввод некорректных данных", TAG);

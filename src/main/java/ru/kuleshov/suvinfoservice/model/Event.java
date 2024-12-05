@@ -40,7 +40,7 @@ public class Event {
 
 
     @ManyToOne
-    @JoinColumn(name = "ev_status_event_id", referencedColumnName = "st_id")
+    @JoinColumn(name = "ev_status_event_id", referencedColumnName = "st_ev_id")
     private StatusEvent statusEvent;
 
     @Column(name = "ev_description")

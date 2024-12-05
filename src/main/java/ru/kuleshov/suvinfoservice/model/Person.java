@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ru.kuleshov.suvinfoservice.model.statusPeople.StatusPeople;
 
 import java.util.List;
 
@@ -37,6 +38,10 @@ public class Person {
     @NotBlank
     @Size(min = 2, max = 40)
     private String patronymic;
+
+    @ManyToOne
+    @JoinColumn(name = "pep_status_people_id", referencedColumnName = "st_pep_id")
+    private StatusPeople statusPeople;
 
     @OneToOne
     @JoinColumn(name = "pep_kurs_id", referencedColumnName = "kur_number_kurs")

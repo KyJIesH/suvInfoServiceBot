@@ -20,4 +20,6 @@ public interface Action {
     void messageNeedAuthorisation(Message msg, TelegramBot bot) throws TelegramApiException;
 
     void messageIncorrectInput(Message msg, TelegramBot bot) throws TelegramApiException;
+
+    String getDateFormatter();
 }
