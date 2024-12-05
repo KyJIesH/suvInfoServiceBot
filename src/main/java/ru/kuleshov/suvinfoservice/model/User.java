@@ -1,6 +1,7 @@
 package ru.kuleshov.suvinfoservice.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,6 +27,10 @@ public class User {
     @Column(name = "us_telegram_id")
     @NotNull
     private Long telegramId;
+
+    @Column(name = "us_name")
+    @NotBlank
+    private String name;
 
     @ManyToOne
     @JoinColumn(name = "us_role_id", referencedColumnName = "rol_id")

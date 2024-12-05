@@ -47,7 +47,7 @@ public class Person {
     @JoinColumn(name = "pep_kurs_id", referencedColumnName = "kur_number_kurs")
     private Kurs kurs;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "events_people",
             joinColumns = @JoinColumn(name = "ev_pep_people_id"),
             inverseJoinColumns = @JoinColumn(name = "ev_pep_event_id"))

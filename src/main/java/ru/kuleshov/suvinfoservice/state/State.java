@@ -17,7 +17,10 @@ public enum State {
     WAIT_INPUT_ID_USER_FOR_DELEGATE_ADMIN_ROOT("ОЖИДАНИЕ ВВОДА ID ПОЛЬЗОВАТЕЛЯ ДЛЯ НАДЕЛЕНИЯ ПРАВАМИ АДМИНА"),
 
     //Получение расхода ЛС
-    WAIT_INPUT_NUMBER_KURS_FOR_GET_PERSON_LIST("ОЖИДАНИЕ ВВОДА НОМЕРА КУРСА ДЛЯ ПОЛУЧЕНИЯ РАСХОДА ЛС");
+    WAIT_INPUT_NUMBER_KURS_FOR_GET_PERSON_LIST("ОЖИДАНИЕ ВВОДА НОМЕРА КУРСА ДЛЯ ПОЛУЧЕНИЯ РАСХОДА ЛС"),
+
+    //Получение списка событий по ФИО
+    WAIT_INPUT_LAST_NAME_AND_NAME_FOR_GET_LIST_EVENTS("ОЖИДАНИЕ ВВОДА ФИО ДЛЯ ПОЛУЧЕНИЯ СПИСКА СОБЫТИЙ");
 
     private final String nameState;
 }

@@ -16,4 +16,6 @@ public interface DaoState {
     void waitInputIdUserForDelegateAdminRoot(Long chatId);
 
     void waitInputNumberKurs(Long chatId);
+
+    void waitInputLastNameAndName(Long chatId);
 }

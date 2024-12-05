@@ -5,9 +5,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import ru.kuleshov.suvinfoservice.bot.TelegramBot;
+import ru.kuleshov.suvinfoservice.model.Event;
+import ru.kuleshov.suvinfoservice.model.Person;
 import ru.kuleshov.suvinfoservice.service.AbsoluteService;
 import ru.kuleshov.suvinfoservice.state.State;
 import ru.kuleshov.suvinfoservice.utils.Utils;
+
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Setter
 @Slf4j
@@ -115,8 +120,41 @@ public class MenuHandler {
                 }
 
                 absoluteService.getAction().sendResponse(msg, "Расход ЛС " + numberKurs + " курса на " +
-                        absoluteService.getAction().getDateFormatter(), bot);
+                        Utils.getDateFormatter(LocalDateTime.now()), bot);
                 absoluteService.getAction().sendResponse(msg, absoluteService.getPeopleService().getListPeople(numberKurs), bot);
+                absoluteService.getDaoState().updateState(msg.getChatId(), State.PROCESSING);
+                break;
+            }
+
+            // Обработка получения расхода ЛС
+            case WAIT_INPUT_LAST_NAME_AND_NAME_FOR_GET_LIST_EVENTS: {
+
+                String[] str = Utils.parsString(msg.getText());
+                if (str == null) {
+                    absoluteService.getAction().messageIncorrectInput(msg, bot);
+                    absoluteService.getDaoState().updateState(msg.getChatId(), State.PROCESSING);
+                    break;
+                }
+
+                Person person = absoluteService.getPeopleService().getPersonByLastNameAndName(str[0], str[1]);
+                if (person == null) {
+                    absoluteService.getAction().sendResponse(msg, "ОБУЧАЮЩИЙСЯ НЕ НАЙДЕН", bot);
+                    absoluteService.getDaoState().updateState(msg.getChatId(), State.PROCESSING);
+                    break;
+                }
+
+                absoluteService.getAction().sendResponse(msg, person.getLastName().toUpperCase() + " " +
+                        person.getName().toUpperCase(), bot);
+
+                List<Event> events = absoluteService.getPeopleService().getEventsByPerson(person);
+                if (events.isEmpty()) {
+                    absoluteService.getAction().sendResponse(msg, "ЗАПИСЕЙ НЕ НАЙДЕНО", bot);
+                    absoluteService.getDaoState().updateState(msg.getChatId(), State.PROCESSING);
+                    break;
+                }
+                absoluteService.getAction().sendResponse(msg, Utils.viewEvents(events), bot);
+
+
                 absoluteService.getDaoState().updateState(msg.getChatId(), State.PROCESSING);
                 break;
             }

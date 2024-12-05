@@ -3,6 +3,7 @@ package ru.kuleshov.suvinfoservice.service;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import ru.kuleshov.suvinfoservice.model.Event;
 import ru.kuleshov.suvinfoservice.model.Kurs;
 import ru.kuleshov.suvinfoservice.model.Person;
 import ru.kuleshov.suvinfoservice.model.statusPeople.StatusPeopleList;
@@ -55,5 +56,22 @@ public class PeopleServiceImpl implements PeopleService {
             }
         }
         return sb.toString();
+    }
+
+    @Override
+    public Person getPersonByLastNameAndName(String lastName, String name) {
+        log.info("{} - получение объекта Person по ФИ", TAG);
+
+        Optional<Person> personOptional = personRepository.findByLastNameAndName(lastName, name);
+        return personOptional.orElse(null);
+    }
+
+    @Override
+    public List<Event> getEventsByPerson(Person person) {
+        log.info("{} - получение всех событий Person {} {}", TAG, person.getLastName(), person.getName());
+
+        List<Event> events = person.getEvents();
+
+        return events;
     }
 }

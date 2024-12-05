@@ -38,7 +38,6 @@ public class Event {
     @JoinColumn(name = "ev_level_event_id", referencedColumnName = "lev_ev_id")
     private LevelEvent levelEvent;
 
-
     @ManyToOne
     @JoinColumn(name = "ev_status_event_id", referencedColumnName = "st_ev_id")
     private StatusEvent statusEvent;

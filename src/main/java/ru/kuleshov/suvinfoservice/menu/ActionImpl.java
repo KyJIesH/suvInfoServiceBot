@@ -136,6 +136,8 @@ public class ActionImpl implements Action {
             switch (ActionCommand.from(msg.getText())) {
                 case FIND:
                     log.info("{} - touchFind", TAG);
+                    sendResponse(msg, "Для получения информации ведите ФАМИЛИЮ и ИМЯ ", bot);
+                    absoluteService.getDaoState().waitInputLastNameAndName(msg.getChatId());
                     break;
                 case ADD_EVENT:
                     log.info("{} - touchActionAddEvent", TAG);
@@ -148,13 +150,6 @@ public class ActionImpl implements Action {
             }
         }
         return true;
-    }
-
-    @Override
-    public String getDateFormatter() {
-        LocalDateTime date = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        return date.format(formatter);
     }
 
     // Отправка ответов пользователю
