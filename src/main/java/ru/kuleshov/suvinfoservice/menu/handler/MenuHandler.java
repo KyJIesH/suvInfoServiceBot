@@ -62,14 +62,20 @@ public class MenuHandler {
             // Обработка меню администратора
             case WAIT_INPUT_ID_USER_FOR_ADD: {
 
-                Long userId = Utils.convertsStringToLong(msg.getText());
-                if (userId == null) {
+                String[] str = Utils.parsString(msg.getText());
+                if (str == null || str.length < 2) {
                     absoluteService.getAction().messageIncorrectInput(msg, bot);
                     absoluteService.getDaoState().updateState(msg.getChatId(), State.PROCESSING);
                     break;
                 }
 
-                absoluteService.getUserService().createUser(userId);
+                Long userId = Utils.convertsStringToLong(str[0]);
+                if (userId == null) {
+                    absoluteService.getAction().messageIncorrectInput(msg, bot);
+                    absoluteService.getDaoState().updateState(msg.getChatId(), State.PROCESSING);
+                    break;
+                }
+                absoluteService.getUserService().createUser(userId, str[1].toUpperCase());
 
                 absoluteService.getAction().sendResponse(msg, "Пользователь с telegramId: " +
                         userId + " - ДОБАВЛЕН!", bot);
@@ -126,11 +132,11 @@ public class MenuHandler {
                 break;
             }
 
-            // Обработка получения расхода ЛС
+            // Обработка получения всех событий суворовца по ФИ
             case WAIT_INPUT_LAST_NAME_AND_NAME_FOR_GET_LIST_EVENTS: {
 
                 String[] str = Utils.parsString(msg.getText());
-                if (str == null) {
+                if (str == null || str.length < 2) {
                     absoluteService.getAction().messageIncorrectInput(msg, bot);
                     absoluteService.getDaoState().updateState(msg.getChatId(), State.PROCESSING);
                     break;

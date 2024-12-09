@@ -100,7 +100,7 @@ public class ActionImpl implements Action {
             switch (AdminMenuCommand.from(msg.getText())) {
                 case ADD_USER:
                     log.info("{} - touchAdminAddUser", TAG);
-                    sendResponse(msg, "Введите telegramId нового пользователя", bot);
+                    sendResponse(msg, "Введите telegramId нового пользователя и Name через пробел", bot);
                     absoluteService.getDaoState().waitInputIdUserForAdd(msg.getChatId());
                     break;
                 case DELETE_USER:
@@ -159,6 +159,7 @@ public class ActionImpl implements Action {
         SendMessage sendMsg = new SendMessage();
         sendMsg.setChatId(String.valueOf(message.getChatId()));
         sendMsg.setText(text);
+        sendMsg.enableHtml(true);
         bot.execute(sendMsg);
     }
 

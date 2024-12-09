@@ -45,11 +45,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User createUser(Long telegramId) {
+    public User createUser(Long telegramId, String name) {
         log.info("{} - Добавление администратором пользователя с id {}", TAG, telegramId);
 
         User user = new User();
         user.setTelegramId(telegramId);
+        user.setName(name);
         user.setRole(getRole(2L));
         user.setUseDate(LocalDateTime.now());
 

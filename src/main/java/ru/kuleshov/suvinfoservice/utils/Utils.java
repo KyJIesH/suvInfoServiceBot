@@ -10,7 +10,7 @@ import java.util.List;
 public class Utils {
 
     public static String getDateFormatter(LocalDateTime dateTime) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
         return dateTime.format(formatter);
     }
 
@@ -29,7 +29,7 @@ public class Utils {
 
     @Nullable
     public static String[] parsString(@Nullable String str) {
-        if (str == null) {
+        if (str == null || str.isEmpty()) {
             return null;
         }
         str = str.trim().toLowerCase();
@@ -41,9 +41,9 @@ public class Utils {
         int i = 1;
         for (Event event : events) {
             sb.append(i).append(". ").append(getDateFormatter(event.getDataEvent())).append("\n");
-            sb.append(event.getOwner().getName()).append("\n");
-            sb.append(event.getLevelEvent().getEventLevel().getLevel()).append("\n");
-            sb.append(event.getStatusEvent().getStatus().getStatusEvent()).append("\n");
+            sb.append("Автор записи: ").append(event.getOwner().getName()).append("\n");
+            sb.append("Назначение: ").append(event.getLevelEvent().getEventLevel().getLevel()).append("\n");
+            sb.append("Статус: ").append(event.getStatusEvent().getStatus().getStatusEvent()).append("\n");
             sb.append(event.getDescription()).append("\n\n");
             i++;
         }

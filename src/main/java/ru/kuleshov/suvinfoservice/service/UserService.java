@@ -8,7 +8,7 @@ public interface UserService {
 
     boolean getAdmin(Long telegramId);
 
-    User createUser(Long telegramId);
+    User createUser(Long telegramId, String name);
 
     void deleteUser(Long telegramId);
 
